@@ -30,9 +30,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+///////* add ImageUpload  *////////
+import ImageUpload from "@/components/ui/image-upload";
+
 const formSchma = z.object({
   name: z.string().min(1),
   billboardId: z.string().min(1),
+  imageUrl: z.string().min(1),
 });
 
 type CategoryFormValues = z.infer<typeof formSchma>;
@@ -62,6 +66,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     defaultValues: initialData || {
       name: "",
       billboardId: "",
+      imageUrl: "",
     },
   });
   const onSubmit = async (data: CategoryFormValues) => {
@@ -80,6 +85,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
+      console.log("this error", error);
     } finally {
       setLoading(false);
     }
@@ -131,6 +137,25 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
           className="space-y-8 w-full"
           onSubmit={form.handleSubmit(onSubmit)}
         >
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Background image</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    disabled={loading}
+                    onChange={(url) => field.onChange(url)}
+                    onRemove={() => field.onChange("")}
+                  />
+                </FormControl>
+                <FormMessage className="text-[9px] md:text-sm" />
+              </FormItem>
+            )}
+          />
+
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}

@@ -52,8 +52,10 @@ model Category {
   billboard   Billboard @relation(fields: [billboardId], references: [id])
   products    Product[] @relation("CategoryToProduct")
   name        String
+  imageUrl    String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  // imgUrl     String
 
   @@index([storeId])
   @@index([billboardId])
@@ -101,6 +103,7 @@ model Product {
   color      Color       @relation(fields: [colorId], references: [id])
   images     Image[]
   orderItems OrderItem[]
+  // payments   Payment[]
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 
@@ -126,8 +129,10 @@ model Order {
   storeId    String
   store      Store       @relation("StoreToOrder", fields: [storeId], references: [id])
   orderItems OrderItem[]
+  // payments   Payment[]
   isPaid     Boolean     @default(false)
   phone      String      @default("")
+  email      String      @default("")
   address    String      @default("")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
@@ -145,3 +150,15 @@ model OrderItem {
   @@index([orderId])
   @@index([productId])
 }
+
+// model Payment {
+// id        Int    @id @default(autoincrement())
+// productId String
+// product   Product @relation(fields: [productId], references: [id])
+// orderId   String
+// order     Order  @relation(fields: [orderId], references: [id])
+// status    String
+
+//  @@index([productId])
+//  @@index([orderId])
+// }

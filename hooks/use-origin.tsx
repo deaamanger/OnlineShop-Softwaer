@@ -1,5 +1,6 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import React from "react";
 
 export const useOrigin = () => {
   const [mounted, setMounted] = useState(false);

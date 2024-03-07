@@ -6,7 +6,7 @@ import prismadb from "@/lib/prismadb";
 
 
 const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": " * ",
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
@@ -22,16 +22,16 @@ export async function POST (
    const { productIds } = await req.json();
 
    if(!productIds || productIds.length === 0){
-       return new NextResponse("Product-IDs are required", {status:400})
+       return new NextResponse("Product-IDs are required", {status:400});
    }
 
    const products = await prismadb.product.findMany({
     where: {
         id: {
             in: productIds
+        } 
         }
-    }
-   });
+    });
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
@@ -44,7 +44,7 @@ export async function POST (
                     name: product.name,
                 },
                 unit_amount: product.price.toNumber() * 100
-            }
+            },
         });
     });
 
@@ -68,6 +68,8 @@ export async function POST (
         line_items,
         mode: "payment",
         billing_address_collection: "required",
+        customer_email: "" || undefined,
+    
         phone_number_collection: {
             enabled: true
         },

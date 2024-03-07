@@ -26,6 +26,7 @@ const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
     id: item.id,
     phone: item.phone,
     address: item.address,
+    email: item.email,
     isPaid: item.isPaid,
     products: item.orderItems
       .map((orderItem) => orderItem.product.name)

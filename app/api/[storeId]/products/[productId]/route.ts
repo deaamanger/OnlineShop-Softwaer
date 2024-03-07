@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs";
 
 import prismadb from "@/lib/prismadb";
 
@@ -135,7 +135,7 @@ export async function  DELETE(
         const product = await prismadb.product.deleteMany({
             where: {
                 id: params.productId,
-                
+            
             }
           });
           return NextResponse.json(product)
