@@ -363,7 +363,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Description:</FormLabel>
                   <FormControl>
                     <Input
                       className="w-full "
