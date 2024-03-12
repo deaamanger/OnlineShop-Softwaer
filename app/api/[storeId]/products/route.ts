@@ -13,6 +13,7 @@ export async function POST (
           const { 
             name,
             price,
+            description,
             categoryId,
             colorId,
             sizeId,
@@ -50,7 +51,9 @@ export async function POST (
             return new NextResponse("Size-ID is required", { status: 400 });
            }
 
-      
+           if(!description) {
+            return new NextResponse("description is required", { status: 400 });
+           }
           
            
            if(!params.storeId){
@@ -73,6 +76,7 @@ export async function POST (
               name ,
               price,
               sizeId,
+              description,
               isFeatured,
               isArchived,
               categoryId,
@@ -134,7 +138,7 @@ export async function GET (
            
            return NextResponse.json(products);
         } catch (error) {
-        console.log('[PRODUCTS_GET]', error);
+       // console.log('[PRODUCTS_GET]', error);
         return new NextResponse("Interal error", { status: 500});
         }
     

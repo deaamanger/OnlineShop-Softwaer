@@ -15,6 +15,7 @@ export async function PATCH (
         const {
             name,
             price,
+            description,
             categoryId,
             colorId,
             sizeId,
@@ -29,6 +30,9 @@ export async function PATCH (
         if(!name) {
             return new NextResponse("Name is required", { status: 400 });
         }
+        if(!description) {
+            return new NextResponse("Name is required", { status: 400 });
+            }
         if(!price) {
             return new NextResponse("price is required", { status: 400 });
         }
@@ -72,6 +76,7 @@ export async function PATCH (
                 name ,
                 price,
                 sizeId,
+                description,
                 categoryId,
                 colorId,
                 storeId: params.storeId,

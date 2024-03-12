@@ -19,7 +19,7 @@ export async function POST(req: Request) {
    
 
     try {
-        event = stripe.webhooks.constructEvent(
+        event =stripe.webhooks.constructEvent(
             body,
             signature,
             process.env.STRIPE_WEBHOOK_SECRET!
@@ -57,8 +57,8 @@ export async function POST(req: Request) {
                 address: addressString,
                 email : session.customer_email || "",
                 phone: session.customer_details?.phone || "",
-               
-               
+                /* */
+                /* Add more Informmation From Order  */  
             },
             include: {
                 orderItems: true
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
 
 
         const productIds = order.orderItems.map((orderItem) => orderItem.productId);
-
+        
         await prismadb.product.updateMany({
             where: {
                 id: {

@@ -57,6 +57,8 @@ export async function POST (
                     product: {
                         connect: {
                             id: productId
+                            /* */
+                            /* to add more information about kd look here */
                         }
                     }
                 }))
